@@ -1,0 +1,11 @@
+#!/bin/bash
+
+readonly PACKER_{{ cookiecutter.repo|upper }}_HOME=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+# packer-{{ cookiecutter.repo }}-build
+function packer-{{ cookiecutter.repo }}-build () {
+  local command="${PACKER_{{ cookiecutter.repo|upper }}_HOME}/.ci/build.sh"
+  echo "+ ${command}" && ${command}
+}
+readonly -f packer-{{ cookiecutter.repo }}-build
+[ "$?" -eq "0" ] || return $?

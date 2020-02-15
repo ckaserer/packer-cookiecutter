@@ -1,0 +1,19 @@
+version: "~> 1.0"
+os: linux
+language: shell
+services: docker
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  slack:
+    if: branch = master
+    rooms:
+      secure: sIQK3qxf249iWZmnswE+/SV0JIMAvHFlMPCUxzLBBP+MiGCPtmEESdGrG90DyCxN+PFUsZlGk4Mq21R59Ld0ii+y7oi7zF8yOXYQ2cTHkze4P7Uguhn/7Vc8+9TfagL7yxoIoOXs5AM/L5gMEj9oC5hfo5l+0ErSAoSNXbQdaxhOEl1RXtts4ODwxv5iyvPCnp6NhTbi1+pjjHIgBKHc7BcKGc2ZY/ZwEOBXdylERqkQrJ9jwPh+by9QW47nzv2XLEFdz/kMukSGdWVLPEg1H0xKIvc5DZlYHqbP6iFsBCrk0y/fH57/ZbSsbpk6wF8Rl4nDAclQm5gp1n5ETvBmas1CX0q8/XYU6CYPnQoI/iGodg7LrVADeU0O6caWX1UReLa3KDGt897JKZbPAd7HzVlJEOsfatu9BTxdmuZ1JN/tzfFyp9DSWMSZpS9avkyHK1DVQeeLeeeZGTqWLMhmNFXpIVR+fga96SZLegQDSx9FicoYYniNAM7Nc+kjyH/0RHJfVWtDK4VSLGKq6l0FpBxujU2i9GrnrMqs62O1r4fPkHKc/LblCMtcudGEC+e/KaRvbRia2Am+nsJA8TwkegHDc4xQexBJSXZwNCOOkotuNv8B1TXPRcRq1OtWtXWhB6TjjYy5bzZ7gtKxuv71dn3LTSsXdDlWbdsaf8EjR9A=
+    template:
+    - "%{commit_subject}"
+    - build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) @%{branch}
+    - by %{author} %{result} in %{duration}
+    on_success: change
+    on_failure: always
+script: ".ci/test.sh"
